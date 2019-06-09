@@ -10,3 +10,8 @@ ncol(ozone)
 
 #mean of obsv count
 mean(ozone$Observation.Count)
+
+head(ozone, n=10)
+
+library(tidyverse)
+summary(ozone)
