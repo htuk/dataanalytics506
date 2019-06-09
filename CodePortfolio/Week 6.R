@@ -16,3 +16,26 @@ summary(income)
 mean(income$M_weekly, na.rm = TRUE)
 mean(income$M_weekly, na.rm = TRUE, trim = 0.1)
 median(income$M_weekly, na.rm = TRUE)
+
+install.packages("matrixStats")
+library(matrixStats)
+
+weighted_median <- function(x, w, ..., na.rm = FALSE){
+  
+  if(na.rm){
+    
+    df_omit <- na.omit(data.frame(x, w))
+    
+    return(weightedMedian(df_omit$x, df_omit$w, ...))
+    
+  } 
+  
+  weightedMedian(x, w, ...)
+  
+}
+
+weighted_median(income$M_weekly, income$Industry, na.rm = TRUE)
+
+library(dplyr)
+library(tibble)
+income <- as_tibble(income)
