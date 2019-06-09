@@ -1,5 +1,6 @@
 # Data Analytics 506
-
+Final Project contains files related to the project
+Code Portfolio has R scripts from the respective week
 ## Final Project
 * Incomplete
 ## Code Portfolio
