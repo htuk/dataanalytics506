@@ -1,8 +1,8 @@
-Data Analytics 506
+#Data Analytics 506
 
 There are 2  folders in this repository
 
-1. Code Portfolio
+##1. Code Portfolio
 This folder contains the code snippets for most used functions split along the following sections
 
 Initial Setup
@@ -14,5 +14,5 @@ DATA VISUALIZATIONS
 GENERAL STSTISTICAL FUNCTIONS
 REGRESSION
 
-2. Final Project
+##2. Final Project
 Incomplete
