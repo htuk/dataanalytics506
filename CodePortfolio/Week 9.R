@@ -2,6 +2,7 @@ library(tidyverse)
 library(dplyr)
 
 diamonds
+
 diamonds %>% 
   count(cut)
 ggplot(data = diamonds) +
