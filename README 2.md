@@ -1,5 +1,16 @@
 # dataanalytics506
 
-### Final Project
-
-### Code Portfolio
+## Final Project
+* Incomplete
+## Code Portfolio
+* Week 1
+* Week 2
+* Week 3 - N/A
+* Week 4
+* Week 5
+* Week 6
+* Week 7
+* Week 8
+* Week 9
+* Week 10
+* Week 11
