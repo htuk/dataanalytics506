@@ -7,7 +7,7 @@ This folder contains the code snippets for functions split along the following s
 
 * Import
 * Wrangling
-* VISUALIZATIONS
+* Visualizations
 * Analysis
 
 ## 2. Final Project
