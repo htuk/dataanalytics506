@@ -1,0 +1,3 @@
+chick <- ChickWeight
+
+summary(chick)
