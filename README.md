@@ -1,5 +1,15 @@
-# dataanalytics506
+# Data Analytics 506
 
-### Final Project
+There are 2  folders in this repository
 
-### Code Portfolio
+## 1. Code Portfolio
+This folder contains the code snippets for functions split along the following sections
+
+* Import
+* Wrangling
+* Visualizations
+* Analysis
+
+## 2. Final Project
+
+
