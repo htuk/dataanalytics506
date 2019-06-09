@@ -1,4 +1,4 @@
-# dataanalytics506
+# Data Analytics 506
 
 ## Final Project
 * Incomplete
