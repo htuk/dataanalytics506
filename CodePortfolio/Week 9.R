@@ -1,7 +1,7 @@
 library(tidyverse)
 library(dplyr)
-
-diamonds
+library(ggplot2)
+data_dia <-data(package = "ggplot2", diamonds) 
 
 diamonds %>% 
   count(cut)
