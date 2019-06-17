@@ -2,7 +2,7 @@
 Final Project contains files related to the project
 Code Portfolio has R scripts from the respective week
 ## Final Project
-* Incomplete
+* This folder has the rmd and analysis for the final project
 ## Code Portfolio
 * Week 1
 * Week 2
