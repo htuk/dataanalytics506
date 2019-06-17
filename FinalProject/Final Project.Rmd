@@ -1,0 +1,93 @@
+---
+title: "Final Project - ANLY 506"
+author: "Harsha Uppala"
+date: "6/16/2019"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Project Questions
+1) Which countries have the highest income?
+2) How has the income changed over time?
+3) Is income correlated with life expectancy?
+
+
+## Description of data
+
+The dataset for this final project has 41284 rows and 6 variables. "Region", "Population" and "Country" are character variables."Year" and "Income" are interger variables. "Life" is a numeric variable and "Population" is a character variable. Therefore, population variable needs to be changed to a numeric variable.
+```{r data, echo = FALSE}
+df <- read.csv(file="gapminder.csv",stringsAsFactors=FALSE)
+#summary(df)
+```
+
+## Data modification 
+Since the population census was conducted every 10 years, there is data missing for population in about 25817 rows. Since, this data was never collected the null values can be dropped from the data set. The boxplot (Fig 1) shows the population distribution in various regions. The median life expectancy is 35 years and the median income value is 1419.5
+
+```{r wrangling, echo=FALSE}
+df_new <- subset(df, Year%%10==0)
+df_new$population <- gsub(",","",df_new$population)
+df_new$population <- as.numeric(df_new$population)
+library(ggplot2)
+qplot(region, population, data=df_new, geom="boxplot", na.rm=TRUE) + ggtitle("Fig. 1 - Population Distribution by region") +   scale_x_discrete(label=abbreviate)
+
+#median(df_new$life)
+#median(df_new$income, na.rm = TRUE)
+
+```
+
+## Highest Income Countries
+After looking at the income in various countries, it is found that the top 3 countries in terms of income are United Arab Emirates (income of 182668), Qatar (income of 158673) and Brunei (income of 121356). 
+
+```{r aggregates, echo=FALSE}
+#inc_max <- aggregate(income~Country, data = df_new, max)
+#head(inc_max[order(-inc_max$income),])
+
+```
+## Data plots
+Now, we can look at how the income in the top 3 countries has changes over time. UAE, Qatar and Brunei have all seen sharp increase and decrease in the income of the country. However, even at the lowest point, the income in these countries is about 35 times the median income of the dataset.For the most part, life expectancy is positive correlated with income for all these countries.
+
+
+```{r plots, echo=FALSE}
+inc_uae <- subset(df_new, df_new$Country == "United Arab Emirates")
+#library(ggplot2)
+plot1 <- ggplot(data = inc_uae, aes(x = Year, y = income))+ geom_line() 
+plot1 + ggtitle("Fig. 2 - UAE income over time") + xlab("Year") + ylab("Income") + scale_y_continuous(labels = scales::comma)
+
+plot2 <- ggplot(data = inc_uae, aes(x = income, y = life))+ geom_line() 
+plot2 + ggtitle("Fig. 3 - UAE life expectancy vs income") + xlab("Income") + ylab("Life") + scale_y_continuous(labels = scales::comma)
+
+inc_qatar <- subset(df_new, df_new$Country == "Qatar")
+plot3 <- ggplot(data = inc_qatar, aes(x = Year, y = income))+ geom_line() 
+plot3 + ggtitle("Fig. 4 - Qatar income over time") + xlab("Year") + ylab("Income") + scale_y_continuous(labels = scales::comma)
+
+plot4 <- ggplot(data = inc_qatar, aes(x = income, y = life))+ geom_line() 
+plot4 + ggtitle("Fig. 5 - Qatar life expectancy vs income") + xlab("Income") + ylab("Life") + scale_y_continuous(labels = scales::comma)
+
+inc_bru <- subset(df_new, df_new$Country == "Brunei")
+plot5 <- ggplot(data = inc_bru, aes(x = Year, y = income))+ geom_line() 
+plot5 + ggtitle("Fig. 6 - Brunei income over time") + xlab("Year") + ylab("Income") + scale_y_continuous(labels = scales::comma)
+
+plot6 <- ggplot(data = df_new, aes(x = income, y = life), na.rm= TRUE)+ geom_line() 
+plot6 + ggtitle("Fig. 7 - Brunei life expectancy vs income") + xlab("Income") + ylab("Life") + scale_y_continuous(labels = scales::comma)
+
+```
+## Cluster Analysis
+Further we can try to uncover any clusters in the data set that might help explain the relationship between life expectancy and income. Using the elbow method, it looks like the optimal number of clusters for this data set is 2. Thus, conducting kmean clustering using 2 centers for life and income variables in the dataset. There seems to be 2 available groups in the given data set. First group is the high income and long life expectancy group. The other group is low income and moderate life expectancy group.
+```{r clusters, echo=FALSE}
+dfclust <- df_new[,c(3,5)]
+dfclust <- subset(dfclust, is.na(dfclust$life)== FALSE)
+dfclust <- subset(dfclust, is.na(dfclust$income)== FALSE)
+library(factoextra)
+fviz_nbclust(dfclust, kmeans, method = "wss", nstart=20)
+clust_1 <- kmeans(dfclust, centers = 2)
+
+fviz_cluster(clust_1,geom="point", data = dfclust) + ggtitle("Fig. 8 - Cluster - Life and Income") + xlab ("life") + ylab("Income")
+
+```
+
+#Conclusion
+
+From the given data set, we were able to observe that the top richest countries in the world have an oil dependent economy and the income for these countries is far greater than the median income , indicating high economic disparity. Further, the income in these countries is volatile and is probably highly correlated with oil prices. Also, the life expectancy in these countries seems to increase with the increase in income.
